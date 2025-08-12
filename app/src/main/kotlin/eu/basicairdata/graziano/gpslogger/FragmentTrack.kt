@@ -159,9 +159,9 @@ class FragmentTrack : Fragment() {
             if (track != null && (track!!.numberOfLocations + track!!.numberOfPlacemarks > 0)) {
                 fTrackID = if (track!!.description.isEmpty()) getString(R.string.track_id) + " " + track!!.id else track!!.description
                 fTrackName = track!!.name
-                phdDuration = phdformatter.format(track!!.getPrefTime(), PhysicalDataFormatter.FORMAT_DURATION)
+                phdDuration = phdformatter.format(track!!.prefTime, PhysicalDataFormatter.FORMAT_DURATION)
                 phdSpeedMax = phdformatter.format(track!!.speedMax, PhysicalDataFormatter.FORMAT_SPEED)
-                phdSpeedAvg = phdformatter.format(track!!.getPrefSpeedAverage(), PhysicalDataFormatter.FORMAT_SPEED_AVG)
+                phdSpeedAvg = phdformatter.format(track!!.prefSpeedAverage, PhysicalDataFormatter.FORMAT_SPEED_AVG)
                 phdDistance = phdformatter.format(track!!.estimatedDistance, PhysicalDataFormatter.FORMAT_DISTANCE)
                 phdAltitudeGap = phdformatter.format(track!!.getEstimatedAltitudeGap(EGMAltitudeCorrection), PhysicalDataFormatter.FORMAT_ALTITUDE)
                 phdOverallDirection = phdformatter.format(track!!.bearing, PhysicalDataFormatter.FORMAT_BEARING)
@@ -185,7 +185,7 @@ class FragmentTrack : Fragment() {
                 tvAnnotations?.text = track!!.numberOfPlacemarks.toString()
                 tvTrackpoints?.text = track!!.numberOfLocations.toString()
 
-                isValidAltitude = track!!.isValidAltitude
+                isValidAltitude = track!!.isValidAltitude()
                 val cPrimary = resources.getColor(R.color.textColorPrimary)
                 val cSecondary = resources.getColor(R.color.textColorSecondary)
                 tvAltitudeGap?.setTextColor(if (isValidAltitude) cPrimary else cSecondary)
