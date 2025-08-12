@@ -11,7 +11,7 @@ import java.util.Collections
 class ExternalViewerChecker(private val context: Context) {
 
     private var externalViewerList: ArrayList<ExternalViewer> = ArrayList()
-    val externalViewersList: ArrayList<ExternalViewer> get() = externalViewerList
+    val externalViewersListProp: ArrayList<ExternalViewer> get() = externalViewerList
 
     private class CustomComparator : Comparator<ExternalViewer> {
         override fun compare(o1: ExternalViewer, o2: ExternalViewer): Int = o1.label.compareTo(o2.label)

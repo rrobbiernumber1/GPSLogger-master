@@ -161,13 +161,13 @@ class FragmentTracklist : Fragment() {
             }
         }
         if (msg == EventBusMSG.ACTION_BULK_VIEW_TRACKS) {
-            val evList = ArrayList(GPSApplication.getInstance().externalViewerChecker.externalViewersList)
+            val evList = ArrayList(GPSApplication.getInstance().externalViewerChecker.getExternalViewersList())
             if (!evList.isEmpty()) {
                 if (evList.size == 1) {
                     GPSApplication.getInstance().setTrackViewer(evList[0])
                     openTrack()
                 } else {
-                    val pn = PreferenceManager.getDefaultSharedPreferences(context).getString("prefTracksViewer", "")
+                    val pn = PreferenceManager.getDefaultSharedPreferences(requireContext()).getString("prefTracksViewer", "")
                     var foundDefault = false
                     for (ev in evList) {
                         if (ev.packageName == pn) {
@@ -176,11 +176,11 @@ class FragmentTracklist : Fragment() {
                         }
                     }
                     if (!foundDefault) {
-                        val dialog = Dialog(activity)
+                        val dialog = Dialog(requireContext())
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                         val view = layoutInflater.inflate(R.layout.appdialog_list, null)
                         val lv = view.findViewById<ListView>(R.id.id_appdialog_list)
-                        val clad = ExternalViewerAdapter(requireContext(), evList)
+                        val clad = ExternalViewerAdapter(requireActivity().applicationContext, evList)
                         lv.adapter = clad
                         lv.onItemClickListener = AdapterView.OnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
                             GPSApplication.getInstance().setTrackViewer(evList[position])
@@ -197,7 +197,7 @@ class FragmentTracklist : Fragment() {
             return
         }
         if (msg == EventBusMSG.ACTION_BULK_DELETE_TRACKS) {
-            val builder = AlertDialog.Builder(activity!!)
+            val builder = AlertDialog.Builder(requireContext())
             builder.setMessage(resources.getString(R.string.card_message_delete_confirmation))
             builder.setIcon(android.R.drawable.ic_menu_info_details)
             builder.setPositiveButton(R.string.yes) { dialog: DialogInterface, _: Int ->
@@ -281,7 +281,7 @@ class FragmentTracklist : Fragment() {
             intent.putExtra(Intent.EXTRA_TEXT, extraText.toString())
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files)
             intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK
-            val resInfoList: List<ResolveInfo> = requireContext().packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+            val resInfoList = requireContext().packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
             for (resolveInfo in resInfoList) {
                 val packageName = resolveInfo.activityInfo.packageName
                 for (U in files) {

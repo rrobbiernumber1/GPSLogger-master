@@ -20,7 +20,7 @@ class FragmentAboutDialog : DialogFragment() {
 
     @NonNull
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val createAboutAlert = AlertDialog.Builder(requireContext(), R.style.MyMaterialThemeAbout)
+        val createAboutAlert = AlertDialog.Builder(requireActivity(), R.style.MyMaterialThemeAbout)
         val inflater = requireActivity().layoutInflater
         val view = inflater.inflate(R.layout.fragment_about_dialog, null)
 
