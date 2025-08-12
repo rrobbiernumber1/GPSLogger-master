@@ -354,7 +354,6 @@ public class Track {
 
         if (DeltaDistancePlusAccuracy < distanceInProgress + accuracyEnd) {
             accuracyLastStepDistance = DeltaDistancePlusAccuracy;
-            //Log.w("myApp", "[#] Track.java - LastStepDistance_Accuracy updated to " + LastStepDistance_Accuracy );
         }
 
         if (distanceInProgress > accuracyEnd + accuracyLastStepDistance) {
@@ -384,7 +383,6 @@ public class Track {
             if (DeltaAltitudePlusAccuracy <= accuracyLastStepAltitude) {
                 accuracyLastStepAltitude = DeltaAltitudePlusAccuracy;
                 distanceLastAltitude = 0;
-                //Log.w("myApp", "[#] Track.java - LastStepAltitude_Accuracy updated to " + LastStepAltitude_Accuracy );
             }
             // Evaluate the altitude step convalidation:
             if ((Math.abs(altitudeInProgress) > MIN_ALTITUDE_STEP) && altitudeFilter.isValid()
@@ -394,7 +392,6 @@ public class Track {
                 if (distanceLastAltitude < 5000) {
                     float hypotenuse = (float) Math.sqrt((double) (distanceLastAltitude * distanceLastAltitude) + (altitudeInProgress * altitudeInProgress));
                     distance = distance + hypotenuse - distanceLastAltitude;
-                    //Log.w("myApp", "[#] Track.java - Distance += " + (hypotenuse - DistanceLastAltitude));
                 }
                 //Reset variables
                 altitudeLastStepAltitude = altitudeEnd;
@@ -973,19 +970,11 @@ public class Track {
                         return TRACK_TYPE_MOUNTAIN;
                     else return TRACK_TYPE_WALK;
             }
-            /*
-            if (SpeedAverageMoving > 20.0f / 3.6f) return TRACK_TYPE_CAR;
-            if (SpeedAverageMoving > 12.0f / 3.6) return TRACK_TYPE_BICYCLE;
-            else if (SpeedAverageMoving > 8.0f / 3.6f) return TRACK_TYPE_RUN;
-            else {
-                if ((Altitude_Up != NOT_AVAILABLE) && (Altitude_Down != NOT_AVAILABLE))
-                    if ((Altitude_Down + Altitude_Up > (0.1f * Distance)) && (Distance > 500.0f))
-                        return TRACK_TYPE_MOUNTAIN;
-                else return TRACK_TYPE_WALK;
-            }*/
         }
         if ((altitudeUp != NOT_AVAILABLE) && (altitudeDown != NOT_AVAILABLE))
             if ((altitudeDown + altitudeUp > 5000.0) && (speedMax > 300.0f / 3.6f)) return TRACK_TYPE_FLIGHT;
         return TRACK_TYPE_CAR;
     }
 }
+
+
