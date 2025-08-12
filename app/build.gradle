@@ -1,0 +1,106 @@
+/*
+ * build.gradle
+ * Created by G.Capelli on 8/5/2016
+ * This file is part of BasicAirData GPS Logger
+ *
+ * Copyright (C) 2011 BasicAirData
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+android {
+    namespace 'eu.basicairdata.graziano.gpslogger'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "eu.basicairdata.graziano.gpslogger"
+        minSdkVersion 14
+        targetSdkVersion 34
+
+        // -----------------------------------------------------------------------------------------
+        // We use the Semantic Versioning (https://semver.org/):
+        versionName '3.2.3'
+        versionCode 52
+        // -----------------------------------------------------------------------------------------
+
+        vectorDrawables.useSupportLibrary = true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [eventBusIndex: 'eu.basicairdata.graziano.gpslogger.EventBusIndex']
+            }
+        }
+
+        // Ensure Kotlin sources are picked up
+        sourceSets {
+            main.java.srcDirs += 'src/main/kotlin'
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            crunchPngs false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            final BUILD_DATE = new Date().format('yyyyMMdd')
+            versionNameSuffix "-dev.$BUILD_DATE"
+        }
+        release {
+            minifyEnabled false
+            crunchPngs false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lint {
+        abortOnError false
+    }
+
+    // Align Java/Kotlin targets
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+
+    // Kotlin stdlib
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.24"
+
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
+
+    implementation "org.greenrobot:eventbus:3.3.1"
+    // Keep Java AP for now; later migrate to kapt if converting subscribers to Kotlin
+    annotationProcessor "org.greenrobot:eventbus-annotation-processor:3.3.1"
+}
