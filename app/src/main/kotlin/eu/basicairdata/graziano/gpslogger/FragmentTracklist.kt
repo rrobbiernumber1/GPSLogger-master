@@ -117,9 +117,7 @@ class FragmentTracklist : Fragment() {
                     if (data[0].id == trk.id) {
                         activity?.runOnUiThread {
                             val holder = recyclerView!!.findViewHolderForAdapterPosition(0)
-                            if (holder != null) {
-                                (holder as TrackAdapter.TrackHolder).UpdateTrackStats(data[0])
-                            }
+                            if (holder != null) (holder as TrackAdapter.TrackHolder).updateTrackStats(data[0])
                         }
                     }
                 }
