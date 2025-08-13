@@ -262,9 +262,9 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
             put(KEY_LOCATION_ACCURACY, if (loc.hasAccuracy()) loc.accuracy else GPSApplication.NOT_AVAILABLE.toFloat())
             put(KEY_LOCATION_BEARING, if (loc.hasBearing()) loc.bearing else GPSApplication.NOT_AVAILABLE.toFloat())
             put(KEY_LOCATION_TIME, loc.time)
-            put(KEY_LOCATION_NUMBEROFSATELLITES, location.getNumberOfSatellites())
+            put(KEY_LOCATION_NUMBEROFSATELLITES, location.numberOfSatellites)
             put(KEY_LOCATION_TYPE, LOCATION_TYPE_LOCATION)
-            put(KEY_LOCATION_NUMBEROFSATELLITESUSEDINFIX, location.getNumberOfSatellitesUsedInFix())
+            put(KEY_LOCATION_NUMBEROFSATELLITESUSEDINFIX, location.numberOfSatellitesUsedInFix)
         }
 
         val trkvalues = buildTrackContentValues(track)
@@ -292,10 +292,10 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
             put(KEY_LOCATION_ACCURACY, if (loc.hasAccuracy()) loc.accuracy else GPSApplication.NOT_AVAILABLE.toFloat())
             put(KEY_LOCATION_BEARING, if (loc.hasBearing()) loc.bearing else GPSApplication.NOT_AVAILABLE.toFloat())
             put(KEY_LOCATION_TIME, loc.time)
-            put(KEY_LOCATION_NUMBEROFSATELLITES, placemark.getNumberOfSatellites())
+            put(KEY_LOCATION_NUMBEROFSATELLITES, placemark.numberOfSatellites)
             put(KEY_LOCATION_TYPE, LOCATION_TYPE_PLACEMARK)
             put(KEY_LOCATION_NAME, placemark.description)
-            put(KEY_LOCATION_NUMBEROFSATELLITESUSEDINFIX, placemark.getNumberOfSatellitesUsedInFix())
+            put(KEY_LOCATION_NUMBEROFSATELLITESUSEDINFIX, placemark.numberOfSatellitesUsedInFix)
         }
 
         val trkvalues = buildTrackContentValues(track)
@@ -376,8 +376,8 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                     if (lcdataFloat != GPSApplication.NOT_AVAILABLE.toFloat()) loc.bearing = lcdataFloat
                     loc.time = cursor.getLong(9)
                     val extd = LocationExtended(loc)
-                    extd.setNumberOfSatellites(cursor.getInt(10))
-                    extd.setNumberOfSatellitesUsedInFix(cursor.getInt(12))
+                    extd.numberOfSatellites = cursor.getInt(10)
+                    extd.numberOfSatellitesUsedInFix = cursor.getInt(12)
                     locationList.add(extd)
                 } while (cursor.moveToNext())
             }
@@ -407,8 +407,8 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                     if (lcdataFloat != GPSApplication.NOT_AVAILABLE.toFloat()) loc.bearing = lcdataFloat
                     loc.time = cursor.getLong(9)
                     val extd = LocationExtended(loc)
-                    extd.setNumberOfSatellites(cursor.getInt(10))
-                    extd.setNumberOfSatellitesUsedInFix(cursor.getInt(13))
+                    extd.numberOfSatellites = cursor.getInt(10)
+                    extd.numberOfSatellitesUsedInFix = cursor.getInt(13)
                     extd.description = cursor.getString(12)
                     placemarkList.add(extd)
                 } while (cursor.moveToNext())

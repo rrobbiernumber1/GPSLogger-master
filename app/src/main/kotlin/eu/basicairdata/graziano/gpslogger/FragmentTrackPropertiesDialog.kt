@@ -59,7 +59,7 @@ class FragmentTrackPropertiesDialog : DialogFragment() {
             title = savedInstanceState.getInt(KEY_TITLE, 0)
             finalizeTrackWithOk = savedInstanceState.getBoolean(KEY_ISFINALIZATION, false)
         } else {
-            GPSApplication.getInstance().setSelectedTrackTypeOnDialog(trackToEdit!!.estimatedTrackType)
+            GPSApplication.getInstance().selectedTrackTypeOnDialog = trackToEdit!!.estimatedTrackType
         }
 
         if (title != 0) builder.setTitle(title)
@@ -96,7 +96,7 @@ class FragmentTrackPropertiesDialog : DialogFragment() {
                 for (j in tracktypeImageView.indices) {
                     if (v == tracktypeImageView[j]) {
                         tracktypeImageView[j]?.setColorFilter(resources.getColor(R.color.textColorRecControlPrimary), PorterDuff.Mode.SRC_IN)
-                        GPSApplication.getInstance().setSelectedTrackTypeOnDialog(tracktypeImageView[j]?.tag as Int)
+                        GPSApplication.getInstance().selectedTrackTypeOnDialog = tracktypeImageView[j]?.tag as Int
                         isTrackTypeIconClicked = true
                     } else {
                         tracktypeImageView[j]?.setColorFilter(resources.getColor(R.color.colorIconDisabledOnDialog), PorterDuff.Mode.SRC_IN)
@@ -113,7 +113,7 @@ class FragmentTrackPropertiesDialog : DialogFragment() {
                     if (GPSApplication.getInstance().selectedTrackTypeOnDialog != GPSApplication.NOT_AVAILABLE) {
                         trackToEdit?.type = GPSApplication.getInstance().selectedTrackTypeOnDialog
                     }
-                    GPSApplication.getInstance().gpsDataBase.updateTrack(trackToEdit)
+                    GPSApplication.getInstance().gpsDataBase.updateTrack(trackToEdit!!)
                     if (finalizeTrackWithOk) {
                         EventBus.getDefault().post(EventBusMSG.NEW_TRACK)
                         val toast = Toast.makeText(GPSApplication.getInstance().applicationContext, R.string.toast_track_saved_into_tracklist, Toast.LENGTH_SHORT)

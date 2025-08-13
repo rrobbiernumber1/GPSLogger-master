@@ -102,7 +102,7 @@ class FragmentGPSFix : Fragment() {
             val layoutHeight = (flGPSFix?.height ?: 0) - (6 * resources.displayMetrics.density).toInt()
             val isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
             val isTimeAndSatellitesVisible = if (isPortrait) layoutHeight >= 6 * viewHeight else layoutHeight >= (3.9 * viewHeight).toInt()
-            GPSApplication.getInstance().setSpaceForExtraTilesAvailable(isTimeAndSatellitesVisible)
+            GPSApplication.getInstance().isSpaceForExtraTilesAvailable = isTimeAndSatellitesVisible
             update()
         }
     }
@@ -165,7 +165,7 @@ class FragmentGPSFix : Fragment() {
         }
 
         iwWarningBatteryOptimisedClose?.setOnClickListener {
-            gpsApp.setBatteryOptimisedWarningVisible(false)
+            gpsApp.isBatteryOptimisedWarningVisible = false
             update()
         }
 
@@ -282,8 +282,8 @@ class FragmentGPSFix : Fragment() {
                 tvTimeLabel?.text = if (phdTime?.um?.isEmpty() == true) getString(R.string.time) else String.format(
                     Locale.getDefault(), "%s (%s)", getString(R.string.time), phdTime?.um
                 )
-                tvSatellites?.text = if (location!!.getNumberOfSatellitesUsedInFix() != GPSApplication.NOT_AVAILABLE)
-                    location!!.getNumberOfSatellitesUsedInFix().toString() + "/" + location!!.getNumberOfSatellites() else ""
+                tvSatellites?.text = if (location!!.numberOfSatellitesUsedInFix != GPSApplication.NOT_AVAILABLE)
+                    location!!.numberOfSatellitesUsedInFix.toString() + "/" + location!!.numberOfSatellites else ""
 
                 isValidAltitude = EGMAltitudeCorrection && (location!!.getAltitudeEGM96Correction() != GPSApplication.NOT_AVAILABLE.toDouble())
                 val cPrimary = resources.getColor(R.color.textColorPrimary)
@@ -300,7 +300,7 @@ class FragmentGPSFix : Fragment() {
                 tlBearing?.visibility = if (phdBearing?.value == "") View.INVISIBLE else View.VISIBLE
                 tlAccuracy?.visibility = if (phdAccuracy?.value == "") View.INVISIBLE else View.VISIBLE
                 tlTime?.visibility = View.VISIBLE
-                tlSatellites?.visibility = if (location!!.getNumberOfSatellitesUsedInFix() == GPSApplication.NOT_AVAILABLE) View.INVISIBLE else View.VISIBLE
+                tlSatellites?.visibility = if (location!!.numberOfSatellitesUsedInFix == GPSApplication.NOT_AVAILABLE) View.INVISIBLE else View.VISIBLE
 
                 llTimeSatellites?.visibility = if (gpsApp.isSpaceForExtraTilesAvailable) View.VISIBLE else View.GONE
 

@@ -110,7 +110,7 @@ class FragmentTracklist : Fragment() {
 
     @Subscribe
     fun onEvent(msg: Short) {
-        if (msg == EventBusMSG.UPDATE_TRACK) {
+                if (msg == EventBusMSG.UPDATE_TRACK) {
             if (!data.isEmpty() && GPSApplication.getInstance().isCurrentTrackVisible) {
                 val trk = GPSApplication.getInstance().currentTrack
                 synchronized(data) {
@@ -148,7 +148,7 @@ class FragmentTracklist : Fragment() {
         if (msg == EventBusMSG.ACTION_EDIT_TRACK) {
             for (T in GPSApplication.getInstance().trackList) {
                 if (T.isSelected) {
-                    GPSApplication.getInstance().setTrackToEdit(T)
+                    GPSApplication.getInstance().trackToEdit = T
                     val fm: FragmentManager = activity!!.supportFragmentManager
                     val tpDialog = FragmentTrackPropertiesDialog()
                     tpDialog.setTitleResource(R.string.card_menu_edit)

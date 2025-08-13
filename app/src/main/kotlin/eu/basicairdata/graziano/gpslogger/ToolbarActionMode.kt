@@ -72,7 +72,7 @@ class ToolbarActionMode : ActionMode.Callback {
         EventBus.getDefault().unregister(this)
         if ((gpsApp.numberOfSelectedTracks > 0) && gpsApp.getGPSActivityActiveTab() == 2) {
             GPSApplication.getInstance().deselectAllTracks()
-            GPSApplication.getInstance().setLastClickId(GPSApplication.NOT_AVAILABLE.toLong())
+            GPSApplication.getInstance().lastClickId = GPSApplication.NOT_AVAILABLE.toLong()
         }
     }
 

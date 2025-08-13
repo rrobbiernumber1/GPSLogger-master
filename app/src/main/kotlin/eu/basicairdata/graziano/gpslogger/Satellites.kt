@@ -5,17 +5,16 @@ import android.location.GpsSatellite
 import android.location.GpsStatus
 import android.os.Build
 import androidx.annotation.RequiresApi
-import eu.basicairdata.graziano.gpslogger.GPSApplication.NOT_AVAILABLE
+import eu.basicairdata.graziano.gpslogger.GPSApplication
 
 /**
  * Stores and manages the updating of the status of the satellites constellations.
  */
 class Satellites {
-    private var numSatsTotal: Int = NOT_AVAILABLE
-    private var numSatsUsedInFix: Int = NOT_AVAILABLE
-
-    fun getNumSatsTotal(): Int = numSatsTotal
-    fun getNumSatsUsedInFix(): Int = numSatsUsedInFix
+    var numSatsTotal: Int = GPSApplication.NOT_AVAILABLE
+        private set
+    var numSatsUsedInFix: Int = GPSApplication.NOT_AVAILABLE
+        private set
 
     fun updateStatus(gpsStatus: GpsStatus?) {
         if (gpsStatus != null) {
@@ -29,8 +28,8 @@ class Satellites {
             numSatsTotal = satsTotal
             numSatsUsedInFix = satsUsed
         } else {
-            numSatsTotal = NOT_AVAILABLE
-            numSatsUsedInFix = NOT_AVAILABLE
+            numSatsTotal = GPSApplication.NOT_AVAILABLE
+            numSatsUsedInFix = GPSApplication.NOT_AVAILABLE
         }
     }
 
@@ -57,8 +56,8 @@ class Satellites {
             numSatsTotal = list.size
             numSatsUsedInFix = list.count { it.used }
         } else {
-            numSatsTotal = NOT_AVAILABLE
-            numSatsUsedInFix = NOT_AVAILABLE
+            numSatsTotal = GPSApplication.NOT_AVAILABLE
+            numSatsUsedInFix = GPSApplication.NOT_AVAILABLE
         }
     }
 }

@@ -139,7 +139,7 @@ class FragmentTrackTypeDialog : DialogFragment() {
                 ac.layout.addView(iv)
 
                 iv.setOnClickListener { view: View ->
-                    GPSApplication.getInstance().setSelectedTrackTypeOnDialog(view.tag as Int)
+                    GPSApplication.getInstance().selectedTrackTypeOnDialog = view.tag as Int
                     EventBus.getDefault().post(EventBusMSG.REFRESH_TRACKTYPE)
                     dismiss()
                 }

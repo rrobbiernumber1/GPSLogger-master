@@ -130,7 +130,7 @@ class GPSService : Service() {
             GPSApplication.GPS_TEMPORARYUNAVAILABLE, GPSApplication.GPS_SEARCHING -> notificationText = getString(R.string.gps_searching)
             GPSApplication.GPS_STABILIZING -> notificationText = getString(R.string.gps_stabilizing)
             GPSApplication.GPS_OK -> {
-                if (GPSApplication.getInstance().isRecording && GPSApplication.getInstance().currentTrack != null) {
+                if (GPSApplication.getInstance().isRecording) {
                     val phdformatter = PhysicalDataFormatter()
                     val phdDuration = phdformatter.format(GPSApplication.getInstance().currentTrack.prefTime, PhysicalDataFormatter.FORMAT_DURATION)
                     if (phdDuration.value.isEmpty()) phdDuration.value = "00:00"

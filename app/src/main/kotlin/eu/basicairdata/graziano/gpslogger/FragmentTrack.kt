@@ -79,7 +79,7 @@ class FragmentTrack : Fragment() {
             val layoutHeight = (flTrack?.height ?: 0) - (6 * resources.displayMetrics.density).toInt()
             val isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
             val isTimeAndSatellitesVisible = if (isPortrait) layoutHeight >= 6 * viewHeight else layoutHeight >= (3.9 * viewHeight).toInt()
-            GPSApplication.getInstance().setSpaceForExtraTilesAvailable(isTimeAndSatellitesVisible)
+            GPSApplication.getInstance().isSpaceForExtraTilesAvailable = isTimeAndSatellitesVisible
             update()
         }
     }

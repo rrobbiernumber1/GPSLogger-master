@@ -93,7 +93,7 @@ class PhysicalDataFormatter {
             }
             FORMAT_ACCURACY -> when (gpsApp.prefUM) {
                 UM_METRIC -> {
-                    physicalData.value = if (GPSApplication.getInstance().isAccuracyDecimal) {
+                    physicalData.value = if (GPSApplication.getInstance().isAccuracyDecimal()) {
                         when {
                             Math.round(number) >= 10 -> Math.round(number).toString()
                             Math.round(number * 10) >= 10 -> String.format(Locale.getDefault(), "%.1f", (Math.round(number * 10.0f)) / 10.0f)
@@ -103,7 +103,7 @@ class PhysicalDataFormatter {
                     physicalData.um = gpsApp.getString(R.string.UM_m)
                 }
                 UM_IMPERIAL, UM_NAUTICAL -> {
-                    physicalData.value = if (GPSApplication.getInstance().isAccuracyDecimal) {
+                    physicalData.value = if (GPSApplication.getInstance().isAccuracyDecimal()) {
                         when {
                             Math.round(number * M_TO_FT) >= 10 -> Math.round(number * M_TO_FT).toString()
                             Math.round(number * M_TO_FT * 10) >= 10 -> String.format(Locale.getDefault(), "%.1f", (Math.round(number * M_TO_FT * 10.0f)) / 10.0f)

@@ -80,7 +80,7 @@ class FragmentRecordingControls : Fragment() {
         tvRecordButton?.setOnTouchListener { _: View?, event: MotionEvent ->
             if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
                 Log.w("myApp", "[#] FragmentRecordingControls.kt - DEACTIVATE FORCE RECORDING OF TRACKPOINTS")
-                gpsApp.setForcedTrackpointsRecording(false)
+                gpsApp.isForcedTrackpointsRecording = false
                 Update()
             }
             false

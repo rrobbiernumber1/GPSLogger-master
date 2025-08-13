@@ -407,9 +407,9 @@ class Exporter(
                                 gpxBW.write("<name>")
                                 gpxBW.write(stringToXML(loc.description))
                                 gpxBW.write("</name>")
-                                if (loc.getNumberOfSatellitesUsedInFix() > 0) {
+                                if (loc.numberOfSatellitesUsedInFix > 0) {
                                     gpxBW.write("<sat>")
-                                    gpxBW.write(loc.getNumberOfSatellitesUsedInFix().toString())
+                                    gpxBW.write(loc.numberOfSatellitesUsedInFix.toString())
                                     gpxBW.write("</sat>")
                                 }
                                 gpxBW.write("</wpt>" + newLine + newLine)
@@ -433,9 +433,9 @@ class Exporter(
                                 txtBW.write(",")
                                 if (loc.location.hasBearing()) txtBW.write(String.format(Locale.US, "%.0f", loc.location.bearing))
                                 txtBW.write(",")
-                                if (loc.getNumberOfSatellitesUsedInFix() > 0) txtBW.write(loc.getNumberOfSatellitesUsedInFix().toString())
+                                if (loc.numberOfSatellitesUsedInFix > 0) txtBW.write(loc.numberOfSatellitesUsedInFix.toString())
                                 txtBW.write(",")
-                                if (loc.getNumberOfSatellites() > 0) txtBW.write(loc.getNumberOfSatellites().toString())
+                                if (loc.numberOfSatellites > 0) txtBW.write(loc.numberOfSatellites.toString())
                                 txtBW.write(",")
                                 txtBW.write(",") // Name is an empty field
                                 txtBW.write(loc.description.replace(",", "_"))
@@ -531,9 +531,9 @@ class Exporter(
                                 gpxBW.write("</speed>")
                             }
                         }
-                        if (loc.getNumberOfSatellitesUsedInFix() > 0) {
+                        if (loc.numberOfSatellitesUsedInFix > 0) {
                             gpxBW.write("<sat>")
-                            gpxBW.write(loc.getNumberOfSatellitesUsedInFix().toString())
+                            gpxBW.write(loc.numberOfSatellitesUsedInFix.toString())
                             gpxBW.write("</sat>")
                         }
                         gpxBW.write("</trkpt>" + newLine)
@@ -556,9 +556,9 @@ class Exporter(
                         txtBW.write(",")
                         if (loc.location.hasBearing()) txtBW.write(String.format(Locale.US, "%.0f", loc.location.bearing))
                         txtBW.write(",")
-                        if (loc.getNumberOfSatellitesUsedInFix() > 0) txtBW.write(loc.getNumberOfSatellitesUsedInFix().toString())
+                        if (loc.numberOfSatellitesUsedInFix > 0) txtBW.write(loc.numberOfSatellitesUsedInFix.toString())
                         txtBW.write(",")
-                        if (loc.getNumberOfSatellites() > 0) txtBW.write(loc.getNumberOfSatellites().toString())
+                        if (loc.numberOfSatellites > 0) txtBW.write(loc.numberOfSatellites.toString())
                         txtBW.write(",")
                         if (txtFirstTrackpointFlag) {
                             if (track.description.isEmpty()) txtBW.write(track.name + ",GPS Logger: " + track.name)

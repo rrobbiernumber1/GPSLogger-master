@@ -63,7 +63,7 @@ class TrackAdapter(data: List<Track>) : RecyclerView.Adapter<TrackAdapter.TrackH
                 track.isSelected = !track.isSelected
                 card.isSelected = track.isSelected
                 GPSApplication.getInstance().lastClickId = track.id
-                GPSApplication.getInstance().setLastClickState(track.isSelected)
+                GPSApplication.getInstance().lastClickState = track.isSelected
                 EventBus.getDefault().post(EventBusMSGNormal(if (track.isSelected) EventBusMSG.TRACKLIST_SELECT else EventBusMSG.TRACKLIST_DESELECT, track.id))
             }
         }
